@@ -5,9 +5,8 @@ function TodoActions({ handleAddClick }) {
         <div style={{ display: "flex", alignItems: "center" }}>
           <div style={{ padding: "0 20px" }}>
             <span
+              className="icon-contain"
               style={{
-                width: "24px",
-                display: "inline-block",
                 marginRight: "5px",
               }}
             >
@@ -17,7 +16,7 @@ function TodoActions({ handleAddClick }) {
                 viewBox="0 0 24 24"
                 strokeWidth={1.5}
                 stroke="currentColor"
-                className="w-6 h-6 plusicon"
+                className="w-6 h-6 icon-hover"
                 onClick={handleAddClick}
               >
                 <path
@@ -27,7 +26,7 @@ function TodoActions({ handleAddClick }) {
                 />
               </svg>
             </span>
-            <span style={{ width: "24px", display: "inline-block" }}>
+            <span className="icon-contain">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"

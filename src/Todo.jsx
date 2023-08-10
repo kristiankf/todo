@@ -6,8 +6,8 @@ import TodoActions from "./TodoActions";
 
 function Todo() {
   let data = [
-    { task: "Learn Javascript", completed: false, id: 1 },
-    { task: "Learn React", completed: false, id: 2 },
+    { task: "Learn Javascript", completed: true, id: 1 },
+    { task: "Learn React", completed: true, id: 2 },
     { task: "Build a react app", completed: false, id: 3 },
   ];
   const [todos, setTodos] = useState(data);
@@ -16,6 +16,10 @@ function Todo() {
 
   function showInputField() {
     setToggle(true);
+  }
+
+  function hideInputField() {
+    setToggle(false);
   }
 
   function handleOnChange(e) {
@@ -36,6 +40,14 @@ function Todo() {
     setTodo("");
   }
 
+  function handleCheckClick(id) {
+    console.log(id);
+    let thetask = todos.find((todo) => {
+      return todo.id == id;
+    });
+    console.log(thetask);
+  }
+
   return (
     <>
       <div className="things-todo">
@@ -47,11 +59,18 @@ function Todo() {
                 handleAddTodo={handleAddTodo}
                 todo={todo}
                 handleOnChange={handleOnChange}
+                handleHideClick={hideInputField}
               ></AddTodo>
             )}
             <div style={{ marginTop: "5px" }}>
               {todos.map((todo) => {
-                return <TodoItem todo={todo} key={todo.id}></TodoItem>;
+                return (
+                  <TodoItem
+                    todo={todo}
+                    key={todo.id}
+                    handleCheckClick={handleCheckClick}
+                  ></TodoItem>
+                );
               })}
             </div>
           </div>
