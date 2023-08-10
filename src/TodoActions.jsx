@@ -1,4 +1,4 @@
-function TodoActions() {
+function TodoActions({ handleAddClick }) {
   return (
     <>
       <div className="todo-actions">
@@ -17,7 +17,8 @@ function TodoActions() {
                 viewBox="0 0 24 24"
                 strokeWidth={1.5}
                 stroke="currentColor"
-                className="w-6 h-6"
+                className="w-6 h-6 plusicon"
+                onClick={handleAddClick}
               >
                 <path
                   strokeLinecap="round"
@@ -47,7 +48,7 @@ function TodoActions() {
             <span>3 items left</span>
           </div>
         </div>
-        <div>
+        <div style={{ padding: "0 20px" }}>
           <button>All</button>
           <button>Active</button>
           <button>Completed</button>
