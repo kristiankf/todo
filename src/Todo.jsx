@@ -30,22 +30,28 @@ function Todo() {
     e.preventDefault();
     let lastIndex = todos.length;
     setTodos([
-      ...todos,
       {
         task: todo,
         completed: false,
         id: lastIndex + 1,
       },
+      ...todos,
     ]);
     setTodo("");
   }
 
-  function handleCheckClick(id) {
+  function handleCheckClick(id, check) {
     console.log(id);
-    let thetask = todos.find((todo) => {
-      return todo.id == id;
+    let tasksUpdated = todos.map((todo) => {
+      if (todo.id == id) {
+        todo.completed = check;
+        return todo;
+      }
+      return todo;
     });
-    console.log(thetask);
+    // console.log(tasksUpdated);
+    setTodos(tasksUpdated);
+    // console.log(todos);
   }
 
   return (
