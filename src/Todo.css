@@ -11,6 +11,7 @@
     font-size: 40px;
     text-align: center;
     margin-bottom: 15px;
+    text-transform: capitalize;
 }
 
 .todo-item {
@@ -58,6 +59,7 @@ div.form-input {
         display: flex;
         align-items: center;
         justify-content: space-between;
+        margin-bottom: 20px;
 }
 
 input[type="text"] {

@@ -1,18 +1,19 @@
 import { useState } from "react";
 import "./Todo.css";
 import AddTodo from "./AddTodo";
-import TodoItem from "./TodoItem";
+import TodoList from "./TodoList";
 import TodoActions from "./TodoActions";
 
 function Todo() {
   let data = [
-    { task: "Learn Javascript", completed: true, id: 1 },
-    { task: "Learn React", completed: true, id: 2 },
+    { task: "Learn Javascript", completed: false, id: 1 },
+    { task: "Learn React", completed: false, id: 2 },
     { task: "Build a react app", completed: false, id: 3 },
   ];
   const [todos, setTodos] = useState(data);
   const [toggle, setToggle] = useState(false);
   const [todo, setTodo] = useState("");
+  const [activeList, setActiveList] = useState("active");
 
   function showInputField() {
     setToggle(true);
@@ -20,6 +21,10 @@ function Todo() {
 
   function hideInputField() {
     setToggle(false);
+  }
+
+  function handleChangeList(listtype) {
+    setActiveList(listtype);
   }
 
   function handleOnChange(e) {
@@ -41,7 +46,7 @@ function Todo() {
   }
 
   function handleCheckClick(id, check) {
-    console.log(id);
+    // console.log(check);
     let tasksUpdated = todos.map((todo) => {
       if (todo.id == id) {
         todo.completed = check;
@@ -58,7 +63,11 @@ function Todo() {
     <>
       <div className="things-todo">
         <div style={{ padding: "10px 20px 0" }}>
-          <h1>THINGS TO DO</h1>
+          <h1>
+            {(activeList == "all" && "All Tasks") ||
+              (activeList == "active" && "Things to do") ||
+              (activeList == "completed" && "Tasks Completed")}
+          </h1>
           <div>
             {toggle && (
               <AddTodo
@@ -69,19 +78,19 @@ function Todo() {
               ></AddTodo>
             )}
             <div style={{ marginTop: "5px" }}>
-              {todos.map((todo) => {
-                return (
-                  <TodoItem
-                    todo={todo}
-                    key={todo.id}
-                    handleCheckClick={handleCheckClick}
-                  ></TodoItem>
-                );
-              })}
+              <TodoList
+                todos={todos}
+                active={activeList}
+                handleCheckClick={handleCheckClick}
+              ></TodoList>
             </div>
           </div>
         </div>
-        <TodoActions handleAddClick={showInputField}></TodoActions>
+        <TodoActions
+          handleAddClick={showInputField}
+          handleChangeList={handleChangeList}
+          active={activeList}
+        ></TodoActions>
       </div>
     </>
   );
