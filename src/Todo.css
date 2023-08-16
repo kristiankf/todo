@@ -17,10 +17,17 @@
 .todo-item {
     padding: 10px 0;
     border-bottom: 1px solid #d2e3e6;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .todo-item:last-child {
     border-bottom: 0
+}
+
+.todo-item:hover span.delete {
+    display: inline-block
 }
 
 .todo-actions {
@@ -37,6 +44,13 @@ span.icon-contain {
     display: inline-block
 }
 
+span.delete {
+    display: none;
+    width: 17px;
+}
+
+
+
 .icon-hover:hover {
     cursor: pointer;
 }
@@ -52,6 +66,13 @@ button {
 button:hover {
     outline: 1px solid #d2e3e6;
     border-radius: 2px;
+}
+
+.empty {
+    margin: auto;
+    width: 120px;
+    display: block;
+    color: rgb(146, 180, 190);
 }
 
 div.form-input {

@@ -1,4 +1,4 @@
-function TodoActions({ handleAddClick, handleChangeList, active }) {
+function TodoActions({ handleAddClick, handleChangeList, active, items }) {
   return (
     <>
       <div className="todo-actions">
@@ -48,7 +48,11 @@ function TodoActions({ handleAddClick, handleChangeList, active }) {
             </span>
           </div>
           <div style={{ paddingInline: "20px", borderLeft: "1px solid gray" }}>
-            <span>3 items left</span>
+            <span>
+              {(items > 1 && items + " tasks") ||
+                (items == 1 && items + " task") ||
+                (items == 0 && "No tasks")}
+            </span>
           </div>
         </div>
         <div style={{ padding: "0 20px" }}>

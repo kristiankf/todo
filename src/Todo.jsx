@@ -13,7 +13,8 @@ function Todo() {
   const [todos, setTodos] = useState(data);
   const [toggle, setToggle] = useState(false);
   const [todo, setTodo] = useState("");
-  const [activeList, setActiveList] = useState("active");
+  const [activeList, setActiveList] = useState("all");
+  const [itemCount, setItemCount] = useState(data.length);
 
   function showInputField() {
     setToggle(true);
@@ -23,8 +24,29 @@ function Todo() {
     setToggle(false);
   }
 
+  //////////////
   function handleChangeList(listtype) {
     setActiveList(listtype);
+
+    let count;
+    if (listtype == "all") {
+      setItemCount(todos.length);
+      console.log(todos);
+    } else if (listtype == "active") {
+      count = todos.filter((todo) => {
+        return todo.completed == false;
+      }).length;
+      console.log(count);
+      console.log(todos);
+      setItemCount(count);
+    } else if (listtype == "completed") {
+      count = todos.filter((todo) => {
+        return todo.completed == true;
+      }).length;
+      console.log(count);
+      console.log(todos);
+      setItemCount(count);
+    }
   }
 
   function handleOnChange(e) {
@@ -57,6 +79,13 @@ function Todo() {
     // console.log(tasksUpdated);
     setTodos(tasksUpdated);
     // console.log(todos);
+    handleChangeList(activeList);
+  }
+
+  function handleDeleteTodo(id) {
+    setTodos((todos) => todos.filter((todo) => todo.id != id));
+    console.log(todos);
+    handleChangeList(activeList);
   }
 
   return (
@@ -82,6 +111,7 @@ function Todo() {
                 todos={todos}
                 active={activeList}
                 handleCheckClick={handleCheckClick}
+                handleDeleteTodo={handleDeleteTodo}
               ></TodoList>
             </div>
           </div>
@@ -90,6 +120,7 @@ function Todo() {
           handleAddClick={showInputField}
           handleChangeList={handleChangeList}
           active={activeList}
+          items={itemCount}
         ></TodoActions>
       </div>
     </>
