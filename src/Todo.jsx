@@ -115,7 +115,7 @@ function Todo() {
                 handleHideClick={hideInputField}
               ></AddTodo>
             )}
-            <div style={{ marginTop: "5px" }}>
+            <div style={{ marginTop: "5px" }} className="todo-list-container">
               <TodoList
                 todos={todos}
                 active={activeList}
