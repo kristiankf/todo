@@ -1,21 +1,23 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./Todo.css";
 import AddTodo from "./AddTodo";
 import TodoList from "./TodoList";
 import TodoActions from "./TodoActions";
 
 function Todo() {
-  let data = [
-    { task: "Learn Javascript", completed: false, id: 1 },
-    { task: "Learn React", completed: false, id: 2 },
-    { task: "Build a react app", completed: false, id: 3 },
-  ];
-  const [nextIndex, setNextIndex] = useState(3);
-  const [todos, setTodos] = useState(data);
+  const storedItems = JSON.parse(localStorage.getItem("todos"));
+  const todoId = JSON.parse(localStorage.getItem("nextId"));
+  const [nextIndex, setNextIndex] = useState(todoId);
+  const [todos, setTodos] = useState(storedItems);
   const [toggle, setToggle] = useState(false);
   const [todo, setTodo] = useState("");
   const [activeList, setActiveList] = useState("all");
-  const [itemCount, setItemCount] = useState(data.length);
+  const [itemCount, setItemCount] = useState(storedItems.length);
+
+  useEffect(() => {
+    localStorage.setItem("todos", JSON.stringify(todos));
+    localStorage.setItem("nextId", nextIndex);
+  }, [todos, nextIndex]);
 
   function showInputField() {
     setToggle(true);
