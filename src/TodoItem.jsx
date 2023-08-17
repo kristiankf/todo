@@ -1,4 +1,5 @@
 import { useState } from "react";
+import PropTypes from "prop-types";
 
 function TodoItem({ todo, checkClick, deleteTodo }) {
   const [check, setCheck] = useState(todo.completed);
@@ -45,5 +46,11 @@ function TodoItem({ todo, checkClick, deleteTodo }) {
     </>
   );
 }
+
+TodoItem.propTypes = {
+  todo: PropTypes.node,
+  checkClick: PropTypes.node,
+  deleteTodo: PropTypes.node,
+};
 
 export default TodoItem;

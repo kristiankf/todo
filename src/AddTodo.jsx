@@ -1,4 +1,5 @@
 // import { useState } from "react";
+import PropTypes from "prop-types";
 
 function AddTodo({ handleAddTodo, todo, handleOnChange, handleHideClick }) {
   // const [inputData, setInputData] = useState("");
@@ -37,5 +38,12 @@ function AddTodo({ handleAddTodo, todo, handleOnChange, handleHideClick }) {
     </>
   );
 }
+
+AddTodo.propTypes = {
+  todo: PropTypes.node,
+  handleAddTodo: PropTypes.node,
+  handleHideClick: PropTypes.node,
+  handleOnChange: PropTypes.node,
+};
 
 export default AddTodo;

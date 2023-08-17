@@ -1,4 +1,5 @@
 import TodoItem from "./TodoItem";
+import PropTypes from "prop-types";
 
 function TodoList({ todos, active, handleCheckClick, handleDeleteTodo }) {
   // for active todos
@@ -140,5 +141,12 @@ function TodoList({ todos, active, handleCheckClick, handleDeleteTodo }) {
     </>
   );
 }
+
+TodoList.propTypes = {
+  todos: PropTypes.node,
+  active: PropTypes.node,
+  handleCheckClick: PropTypes.node,
+  handleDeleteTodo: PropTypes.node,
+};
 
 export default TodoList;

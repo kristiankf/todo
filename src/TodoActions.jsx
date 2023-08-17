@@ -1,3 +1,5 @@
+import PropTypes from "prop-types";
+
 function TodoActions({ handleAddClick, handleChangeList, active, items }) {
   return (
     <>
@@ -66,5 +68,12 @@ function TodoActions({ handleAddClick, handleChangeList, active, items }) {
     </>
   );
 }
+
+TodoActions.propTypes = {
+  active: PropTypes.node,
+  items: PropTypes.node,
+  handleChangeList: PropTypes.node,
+  handleAddClick: PropTypes.node,
+};
 
 export default TodoActions;
