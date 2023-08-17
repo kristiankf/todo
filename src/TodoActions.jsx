@@ -7,6 +7,7 @@ function TodoActions({ handleAddClick, handleChangeList, active, items }) {
             <span
               className="icon-contain"
               style={active == "completed" ? { display: "none" } : null}
+              title="Add task"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
