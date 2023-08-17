@@ -5,19 +5,24 @@ import TodoList from "./TodoList";
 import TodoActions from "./TodoActions";
 
 function Todo() {
+  //RETRIEVE STORED ITEMS FROM LOCALSTORAGE
   const storedItems = localStorage.getItem("todos")
     ? JSON.parse(localStorage.getItem("todos"))
     : [];
+
+  // RETRIEVE NEXTID OF ITEMS IN TODO LIST FROM LOCAL STORAGE
   const todoId = localStorage.getItem("nextId")
     ? localStorage.getItem("nextId")
     : 0;
-  const [nextIndex, setNextIndex] = useState(todoId);
-  const [todos, setTodos] = useState(storedItems);
-  const [toggle, setToggle] = useState(false);
-  const [todo, setTodo] = useState("");
-  const [activeList, setActiveList] = useState("all");
-  const itemCount = useRef(storedItems?.length);
 
+  const [nextIndex, setNextIndex] = useState(todoId); //ID OF ITEM IN TODO LIST
+  const [todos, setTodos] = useState(storedItems); //TODOS
+  const [toggle, setToggle] = useState(false); //THIS IS USED TO DISPLAY ADDTODO INPUT FIELD
+  const [todo, setTodo] = useState(""); //FOR UPDATING VALUE IN ADDTODO INPUT FIELD
+  const [activeList, setActiveList] = useState("all"); //TO INDICATE THE TYPE OF TODOS TO SHOW ie 'all', 'active', 'completed'
+  const itemCount = useRef(storedItems?.length); //this is to keep track of items in list of type of todo
+
+  //Storing our items in local storage
   useEffect(() => {
     localStorage.setItem("todos", JSON.stringify(todos));
     localStorage.setItem("nextId", nextIndex);
@@ -31,35 +36,37 @@ function Todo() {
     setToggle(false);
   }
 
-  //////////////
+  //this function displays the selected list ie 'active', completed, all. it also counts items in the list
   function handleChangeList(listtype) {
     setActiveList(listtype);
 
     let count;
     if (listtype == "all") {
       itemCount.current = todos.length;
-      console.log(todos);
+      // console.log(todos);
     } else if (listtype == "active") {
       count = todos?.filter((todo) => {
         return todo.completed == false;
       }).length;
-      console.log(count);
-      console.log(todos);
+      // console.log(count);
+      // console.log(todos);
       itemCount.current = count;
     } else if (listtype == "completed") {
       count = todos?.filter((todo) => {
         return todo.completed == true;
       }).length;
-      console.log(count);
-      console.log(todos);
+      // console.log(count);
+      // console.log(todos);
       itemCount.current = count;
     }
   }
 
+  //update todo to add to list
   function handleOnChange(e) {
     setTodo(e.target.value);
   }
 
+  //add todo to todos list
   function handleAddTodo(e) {
     e.preventDefault();
 
@@ -76,6 +83,7 @@ function Todo() {
     handleChangeList(activeList);
   }
 
+  //fuctino to updatelist. basically changing status of completed
   function handleCheckClick(id, check) {
     // console.log(check);
     let tasksUpdated = todos.map((todo) => {
@@ -93,7 +101,7 @@ function Todo() {
 
   function handleDeleteTodo(id) {
     setTodos((todos) => todos.filter((todo) => todo.id != id));
-    console.log(todos);
+    // console.log(todos);
     handleChangeList(activeList);
   }
 
