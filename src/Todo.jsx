@@ -5,8 +5,12 @@ import TodoList from "./TodoList";
 import TodoActions from "./TodoActions";
 
 function Todo() {
-  const storedItems = JSON.parse(sessionStorage.getItem("todos"));
-  const todoId = JSON.parse(sessionStorage.getItem("nextId"));
+  const storedItems = localStorage.getItem("todos")
+    ? JSON.parse(localStorage.getItem("todos"))
+    : [];
+  const todoId = localStorage.getItem("nextId")
+    ? localStorage.getItem("nextId")
+    : 0;
   const [nextIndex, setNextIndex] = useState(todoId);
   const [todos, setTodos] = useState(storedItems);
   const [toggle, setToggle] = useState(false);
@@ -15,12 +19,8 @@ function Todo() {
   const itemCount = useRef(storedItems?.length);
 
   useEffect(() => {
-    todos
-      ? sessionStorage.setItem("todos", JSON.stringify(todos))
-      : sessionStorage.setItem("todos", JSON.stringify([]));
-    nextIndex
-      ? sessionStorage.setItem("nextId", nextIndex)
-      : sessionStorage.setItem("nextId", 0);
+    localStorage.setItem("todos", JSON.stringify(todos));
+    localStorage.setItem("nextId", nextIndex);
   }, [todos, nextIndex]);
 
   function showInputField() {
