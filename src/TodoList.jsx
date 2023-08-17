@@ -4,9 +4,9 @@ function TodoList({ todos, active, handleCheckClick, handleDeleteTodo }) {
   // for active todos
   if (active == "active") {
     //get the number of active tasks
-    let listLen = todos.filter((todo) => {
+    let listLen = todos?.filter((todo) => {
       return todo.completed == false;
-    }).length;
+    })?.length;
 
     if (listLen == 0) {
       return (
@@ -32,7 +32,7 @@ function TodoList({ todos, active, handleCheckClick, handleDeleteTodo }) {
     return (
       <>
         {todos
-          .filter((todo) => {
+          ?.filter((todo) => {
             return todo.completed == false;
           })
           .map((todo) => {
@@ -51,9 +51,9 @@ function TodoList({ todos, active, handleCheckClick, handleDeleteTodo }) {
   //   for completed todos
   else if (active == "completed") {
     //get the number of completed tasks
-    let listLen = todos.filter((todo) => {
+    let listLen = todos?.filter((todo) => {
       return todo.completed == true;
-    }).length;
+    })?.length;
 
     if (listLen == 0) {
       return (
@@ -79,7 +79,7 @@ function TodoList({ todos, active, handleCheckClick, handleDeleteTodo }) {
     return (
       <>
         {todos
-          .filter((todo) => {
+          ?.filter((todo) => {
             return todo.completed == true;
           })
           .map((todo) => {
@@ -98,7 +98,7 @@ function TodoList({ todos, active, handleCheckClick, handleDeleteTodo }) {
 
   //for all
   //get the number of active tasks
-  let listLen = todos.length;
+  let listLen = todos?.length;
 
   if (listLen == 0) {
     return (
@@ -123,7 +123,7 @@ function TodoList({ todos, active, handleCheckClick, handleDeleteTodo }) {
   }
   return (
     <>
-      {todos.map((todo) => {
+      {todos?.map((todo) => {
         return (
           <TodoItem
             todo={todo}

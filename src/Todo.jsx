@@ -1,22 +1,26 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import "./Todo.css";
 import AddTodo from "./AddTodo";
 import TodoList from "./TodoList";
 import TodoActions from "./TodoActions";
 
 function Todo() {
-  const storedItems = JSON.parse(localStorage.getItem("todos"));
-  const todoId = JSON.parse(localStorage.getItem("nextId"));
+  const storedItems = JSON.parse(sessionStorage.getItem("todos"));
+  const todoId = JSON.parse(sessionStorage.getItem("nextId"));
   const [nextIndex, setNextIndex] = useState(todoId);
   const [todos, setTodos] = useState(storedItems);
   const [toggle, setToggle] = useState(false);
   const [todo, setTodo] = useState("");
   const [activeList, setActiveList] = useState("all");
-  const [itemCount, setItemCount] = useState(storedItems.length);
+  const itemCount = useRef(storedItems?.length);
 
   useEffect(() => {
-    localStorage.setItem("todos", JSON.stringify(todos));
-    localStorage.setItem("nextId", nextIndex);
+    todos
+      ? sessionStorage.setItem("todos", JSON.stringify(todos))
+      : sessionStorage.setItem("todos", JSON.stringify([]));
+    nextIndex
+      ? sessionStorage.setItem("nextId", nextIndex)
+      : sessionStorage.setItem("nextId", 0);
   }, [todos, nextIndex]);
 
   function showInputField() {
@@ -33,22 +37,22 @@ function Todo() {
 
     let count;
     if (listtype == "all") {
-      setItemCount(todos.length);
+      itemCount.current = todos.length;
       console.log(todos);
     } else if (listtype == "active") {
-      count = todos.filter((todo) => {
+      count = todos?.filter((todo) => {
         return todo.completed == false;
       }).length;
       console.log(count);
       console.log(todos);
-      setItemCount(count);
+      itemCount.current = count;
     } else if (listtype == "completed") {
-      count = todos.filter((todo) => {
+      count = todos?.filter((todo) => {
         return todo.completed == true;
       }).length;
       console.log(count);
       console.log(todos);
-      setItemCount(count);
+      itemCount.current = count;
     }
   }
 
@@ -69,6 +73,7 @@ function Todo() {
     ]);
     setNextIndex(nextIndex + 1);
     setTodo("");
+    handleChangeList(activeList);
   }
 
   function handleCheckClick(id, check) {
@@ -124,7 +129,7 @@ function Todo() {
           handleAddClick={showInputField}
           handleChangeList={handleChangeList}
           active={activeList}
-          items={itemCount}
+          items={itemCount.current}
         ></TodoActions>
       </div>
     </>
