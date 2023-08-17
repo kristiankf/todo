@@ -10,6 +10,7 @@ function Todo() {
     { task: "Learn React", completed: false, id: 2 },
     { task: "Build a react app", completed: false, id: 3 },
   ];
+  const [nextIndex, setNextIndex] = useState(3);
   const [todos, setTodos] = useState(data);
   const [toggle, setToggle] = useState(false);
   const [todo, setTodo] = useState("");
@@ -55,15 +56,16 @@ function Todo() {
 
   function handleAddTodo(e) {
     e.preventDefault();
-    let lastIndex = todos.length;
+
     setTodos([
       {
         task: todo,
         completed: false,
-        id: lastIndex + 1,
+        id: nextIndex + 1,
       },
       ...todos,
     ]);
+    setNextIndex(nextIndex + 1);
     setTodo("");
   }
 
@@ -98,7 +100,7 @@ function Todo() {
               (activeList == "completed" && "Tasks Completed")}
           </h1>
           <div>
-            {toggle && (
+            {toggle && activeList != "completed" && (
               <AddTodo
                 handleAddTodo={handleAddTodo}
                 todo={todo}
